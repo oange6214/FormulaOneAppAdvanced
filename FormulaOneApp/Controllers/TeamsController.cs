@@ -10,7 +10,7 @@ namespace FormulaOneApp.Controllers;
 [ApiController]
 public class TeamsController : ControllerBase
 {
-    private static AppDbContext _context;
+    private static AppDbContext _context = null!;
 
     public TeamsController(AppDbContext context)
     {
@@ -27,7 +27,7 @@ public class TeamsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        var team = _context.Teams.FirstOrDefaultAsync(x => x.Id == id);
+        var team = await _context.Teams.FirstOrDefaultAsync(x => x.Id == id);
 
         if (team == null)
         {
